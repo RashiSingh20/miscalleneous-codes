@@ -1,0 +1,78 @@
+Given a positive integer N, the task is to find all the N bit binary numbers having more than or equal 1’s than 0’s for any prefix of the number.
+
+Example 1:
+
+Input:  N = 2
+Output: 11 10
+Explanation: 11 and 10 have more than 
+or equal 1's than 0's
+Example 2:
+
+Input:  N = 3
+Output: 111 110 101
+Explanation: 111, 110 and 101 have more 
+than or equal 1's than 0's
+User Task:
+Your task is to complete the function NBitBinary() which takes a single number as input and returns the list of strings in decreasing order. You need not take any input or print anything.
+
+Expected Time Complexity: O(|2N|)
+Expected Auxiliary Space: O(2N)
+
+Constraints:
+1 <= N <= 20
+
+*SOLUTION*
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String args[]) throws IOException {
+        BufferedReader read =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while (t-- > 0) {
+            int n = Integer.parseInt(read.readLine());
+            Solution ob = new Solution();
+            ArrayList<String> result = ob.NBitBinary(n);
+            for(String value  : result){
+                System.out.print(value + " ");
+            }
+            System.out.println();
+        }
+    }
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution {
+    ArrayList<String> NBitBinary(int N) {
+        ArrayList<String> al= new ArrayList<>();
+        String op="";
+        binary(N,0,0,al,op);
+        Collections.reverse(al);
+        return al;
+    }
+    public static void binary(int n, int o, int z, ArrayList<String> al,String op){
+        if((o+z)== n){
+            al.add(op);
+            return;
+        }
+        String op1=op;
+        String op2=op;
+        if(o==z){
+            op+='1';
+            binary(n,o+1,z,al,op);
+        }
+        else{
+            op1+='0';
+            op2+='1';
+            binary(n,o,z+1,al,op1);
+            binary(n,o+1,z,al,op2);
+        }
+        return;
+    }
+}
